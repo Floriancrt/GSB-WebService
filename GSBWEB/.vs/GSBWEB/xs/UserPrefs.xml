@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{B78B050A-9264-4A06-A34E-87FB5BEC52BA}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebService1.asmx.cs">
+    <Files>
+      <File FileName="WebService1.asmx" Line="1" Column="1" />
+      <File FileName="Web.config" Line="13" Column="25" />
+      <File FileName="WebService1.asmx.cs" Line="290" Column="122" />
+      <File FileName="Service1.svc.cs" Line="24" Column="68" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GSBWEB" expanded="True">
+            <Node name="GSBWEB" expanded="True">
+              <Node name="Service1.svc" expanded="True" />
+              <Node name="WebService1.asmx" expanded="True">
+                <Node name="WebService1.asmx.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.GSBWEB PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
