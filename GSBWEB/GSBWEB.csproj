@@ -64,7 +64,9 @@
   <ItemGroup>
     <Content Include="Service1.svc" />
     <Content Include="Web.config" />
-    <Content Include="WebService1.asmx" />
+    <Content Include="WebService1.asmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service1.svc.cs">

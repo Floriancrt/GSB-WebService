@@ -61,7 +61,7 @@ namespace GSBWEB
             String[] medocs = new String[medoc];
             conn.Open();
             MySqlCommand cmd2 = conn.CreateCommand();
-            cmd2.CommandText = "SELECT * FROM medicaments";
+            cmd2.CommandText = "CALL afficher_medicaments();";
             MySqlDataReader tableau = cmd2.ExecuteReader();
 
             if (tableau.HasRows)
@@ -286,10 +286,7 @@ namespace GSBWEB
             string[] ac = new string[Convert.ToInt32(cmd.ExecuteScalar())]; // création du tableau
 
             // requête de sélection
-            cmd.CommandText = @"
-            SELECT idAC, etat, budgetActivitesComp, commentaires, salle, date_activite, salle, etat, idResponsable, bilan
-            FROM activites
-            INNER JOIN activitescomp ON activitescomp.idAC = activites.idActivite";
+            cmd.CommandText = @"CALL afficher_AC();";
 
             // lecture des résultats
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -299,7 +296,7 @@ namespace GSBWEB
 
                 while (reader.Read())
                 {
-                    ac[i] = reader["idAC"].ToString() + "|" + reader["date_activite"].ToString() + "|" + reader["bilan"].ToString() + "|" + reader["idResponsable"].ToString() + "|" + reader["budgetActivitesComp"].ToString() + "|" + reader["etat"].ToString() + "|" + reader["salle"].ToString() + "|" + reader["commentaires"].ToString();
+                    ac[i] = reader["idAC"].ToString() + "|" + reader["date_activite"].ToString() + "|" + reader["bilan"].ToString() + "|" + reader["idResponsable"].ToString() + "|" + reader["budgetActivitesComp"].ToString() + "|" + reader["etat"].ToString() + "|" + reader["salle"].ToString() + "|" + reader["theme"].ToString();
                     i++;
                 }
             }
@@ -310,6 +307,90 @@ namespace GSBWEB
 
 
 
+        }
+
+        [WebMethod]
+        public string[] GetParticipants(string id)
+        {
+            String connString = "Server = 127.0.0.1;Database = gsb;Port = 8889;Uid = root;Password = root;SslMode = none";
+            MySqlConnection conn = new MySqlConnection(connString);
+            conn.Open();
+
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.Parameters.AddWithValue("@idAC", id);
+
+            // nombre de résultats
+            cmd.CommandText = @"
+            SELECT COUNT(*)
+            FROM participer";
+
+            string[] participants = new string[Convert.ToInt32(cmd.ExecuteScalar())]; // création du tableau
+
+            // requête de sélection
+            cmd.CommandText = @"
+            SELECT login
+            FROM utilisateurs
+            JOIN praticiens ON utilisateurs.id = praticiens.idPraticien
+            JOIN participer ON praticiens.idPraticien = participer.idActivite
+            WHERE idActivite = @idAC";
+
+            // lecture des résultats
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                int i = 0;
+
+                while (reader.Read())
+                {
+                    participants[i] = reader["login"].ToString();
+                    i++;
+                }
+            }
+
+            conn.Close();
+            return participants;
+        }
+
+
+        [WebMethod]
+        public string[] GetPraticiens()
+        {
+            String connString = "Server = 127.0.0.1;Database = gsb;Port = 8889;Uid = root;Password = root;SslMode = none";
+            MySqlConnection conn = new MySqlConnection(connString);
+            conn.Open();
+
+            MySqlCommand cmd = conn.CreateCommand();
+
+            // nombre de résultats
+            cmd.CommandText = @"
+            SELECT COUNT(*)
+            FROM utilisateurs
+            WHERE role = P ";
+
+            string[] praticiens = new string[Convert.ToInt32(cmd.ExecuteScalar())]; // création du tableau
+
+            // requête de sélection
+            cmd.CommandText = @"
+            SELECT login, mdp, email, nomPraticien,prenomPraticien
+            FROM utilisateurs
+            JOIN praticiens ON utilisateurs.id = praticiens.idPraticien
+            WHERE role = 'P' ";
+
+            // lecture des résultats
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                int i = 0;
+
+                while (reader.Read())
+                {
+                    praticiens[i] = reader["login"].ToString() + "|" + reader["mdp"].ToString() + "|" + reader["email"].ToString() + "|" + reader["nomPraticien"].ToString() + "|" + reader["prenomPraticien"].ToString();
+                    i++;
+                }
+            }
+
+            conn.Close();
+            return praticiens;
         }
 
 

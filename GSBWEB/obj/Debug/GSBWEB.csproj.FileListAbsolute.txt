@@ -18,3 +18,4 @@ D:/Users/Administrateur/source/repos/GSBWEB/GSBWEB/obj/Debug/GSBWEB.pdb
 /Users/florian/Downloads/GSBWEB/obj/Debug/GSBWEB.csproj.CopyComplete
 /Users/florian/Downloads/GSBWEB/obj/Debug/GSBWEB.dll
 /Users/florian/Downloads/GSBWEB/obj/Debug/GSBWEB.pdb
+/Users/florian/Downloads/GSBWEB/bin/WebService1.asmx
